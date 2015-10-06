@@ -7,7 +7,6 @@ var invr = [];
 var step = 0;
 var inDungeon = false;
 var using = 0;
-var invback = 0;
 var inBattle = false;
 var hpmax = 0;
 var hp = 0;
@@ -18,7 +17,6 @@ var atk = 0;
 var atkAdd = 0;
 var crit = 0;
 var def = 0;
-var equip = "";
 var enames1 = ["Haunted Blade", "Car", "Weed", "Guy", "Moron"];
 var bossnames = ["Dragon", "Warrior"];
 var ename = "";
@@ -106,15 +104,15 @@ function invUse() {
 function travel () {
 	window.step = step - 1;
 	document.getElementById("steps").innerHTML = "Steps: " + step;
-	if (inDungeon === false) {
+	if (inDungeon === true) {
 		if (step === 0) {
-			town();
+			bossset();
 		} else {
 			generator();
 		}
 	} else {
 		if (step === 0) {
-			bossset();
+			town();
 		} else {
 			generator();
 		}
@@ -124,14 +122,15 @@ function travel () {
 
 function generator() {
 	var rng = Math.floor((Math.random() * 3) + 1);
-	if (inDungeon === false) {
+	if (inDungeon === true) {
 		if (rng === 1) {
 			enmset();
 		} else if (rng === 2) {
 			document.getElementById("text").innerHTML= "Nothing special here, how boring!";
 		} else if (rng === 3) {
-			document.getElementById("text").innerHTML= "Holy cow! You found a coinbag!";
-			window.cash = cash + 2;
+			document.getElementById("text").innerHTML= "Holy cow! You found a backpack!";
+			window.cash = cash + 5;
+			window.invcon.push("Protein Shake");
 			document.getElementById("money").innerHTML = "Cash: " + cash;
 		}
 	} else {
@@ -140,9 +139,8 @@ function generator() {
 		} else if (rng === 2) {
 			document.getElementById("text").innerHTML= "Nothing special here, how boring!";
 		} else if (rng === 3) {
-			document.getElementById("text").innerHTML= "Holy cow! You found a backpack!";
-			window.invcon.push("Apple");
-			window.cash = cash + 5;
+			document.getElementById("text").innerHTML= "Holy cow! You found a coinbag!";
+			window.cash = cash + 2;
 			document.getElementById("money").innerHTML = "Cash: " + cash;
 		}
 	}
@@ -169,7 +167,7 @@ function leaveTown() {
 
 function dungeon() {
 	document.getElementById("text").innerHTML = "Welcome to the dungeon, sucker";
-	window.inDungeon = true;
+	inDungeon = true;
 	document.getElementById("commands").style.visibility = "visible";
 	document.getElementById("townc").style.visibility = "hidden";
 	window.step = Math.floor((Math.random() * 30) + 5);
@@ -228,7 +226,7 @@ function plyrAtk() {
 }
 
 function enmAtk() {
-	window.hp = hp - eatk;
+	window.hp = hp - (eatk-def);
 	if (hp <= 0) {
 		plyrDie();
 	} else {
