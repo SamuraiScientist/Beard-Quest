@@ -34,6 +34,7 @@ function newGame() {
 	window.name = prompt("What is your name?");
 	window.cash = 0;
 	window.inBattle = false;
+	window.inDungeon = false;
 	window.invcon = [];
 	window.hpmax = 25;
 	window.hp = 25;
@@ -105,7 +106,7 @@ function invUse() {
 function travel () {
 	window.step = step - 1;
 	document.getElementById("steps").innerHTML = "Steps: " + step;
-	if (window.inDungeon === false) {
+	if (inDungeon === false) {
 		if (step === 0) {
 			town();
 		} else {
@@ -123,7 +124,7 @@ function travel () {
 
 function generator() {
 	var rng = Math.floor((Math.random() * 3) + 1);
-	if (window.inDungeon === false) {
+	if (inDungeon === false) {
 		if (rng === 1) {
 			enmset();
 		} else if (rng === 2) {
@@ -322,9 +323,9 @@ function shop() {
 			}
 		break;
 		case "Band-Aid":
-			if (window.cash >= 10) {
-				window.invcon.push("Water");
-				window.cash = cash - 10;
+			if (window.cash >= 40) {
+				window.invcon.push("Band-Aid");
+				window.cash = cash - 40;
 			} else {
 				document.getElementById("text").innerHTML="You don't have enough money for this!";
 			}
