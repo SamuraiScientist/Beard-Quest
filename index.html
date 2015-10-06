@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script type="text/javascript" src="engine.js"></script>
+	<title>Beard Quest</title>
+<style>
+	body {
+	background-color: #000000;
+	}
+	
+	details {
+		color: #00FF00;
+	}
+	
+	p {
+		color: #00FF00;
+	}
+	
+	#invt {
+		color: #FFFFFF;
+	}
+	
+	#invtc {
+		color: #00FF00;
+	}
+	
+	#invtu {
+		color: #00FFFF;
+	}
+	
+	#invtr {
+		color: #FF0000;
+	}
+	
+	#money {
+		color: #FFFF00;
+	}
+</style>
+</head>
+<body>
+	<details>
+	<summary>New Game</summary>
+	<button id = "startg" onClick = "newGame()">New Game</button>
+	</details>
+	<br>
+	<details id = "battlec">
+		<summary>Battle Commands</summary>
+		<button id = "atk" onClick = "plyrAtk()">Attack!</button>
+		<button id = "invs" onClick = "invShow()">Show Inventory</button>
+		<button id = "invh" onClick = "invHide()">Hide Inventory</button>
+		<button id = "invuse" onClick = "invUse()">Use Inventory Item</button>
+	</details>
+	<br>
+	<details id = "commands">
+		<summary>Commands</summary>
+		<button id = "moving" onClick = "travel()">Move Forward</button>
+		<button id = "invs" onClick = "invShow()">Show Inventory</button>
+		<button id = "invh" onClick = "invHide()">Hide Inventory</button>
+		<button id = "invuse" onClick = "invUse()">Use Inventory Item</button>
+		<button id = "set" onClick = "equipSet()">Equip Item</button>
+	</details>
+	<br>
+	<details id = "townc">
+		<summary>Town Commands</summary>
+		<button id = "shop" onClick = "shop()">Shop</button>
+		<button id = "dungeons" onClick = "dungeon()">Goto Dungeon</button>
+		<button id = "inn" onClick = "inn()">Goto Inn</button>
+		<button id = "leave" onClick = "leaveTown()">Leave Town</button>
+	</details>
+	<p id = "stat"></p>
+	<br>
+	<p id = "estat"></p>
+	<br>
+	<p id = "money"></p>
+	<br>
+	<p id = "steps"></p>
+	<br>
+	<p id = "invt"></p>
+	<br>
+	<p id = "invtc"></p>
+	<br>
+	<p id = "invtu"></p>
+	<br>
+	<p id = "invtr"></p>
+	<br>
+	<p id = "equip"></p>
+	<br>
+	<p id = "text"></p>
+</body>
+</html>
