@@ -7,7 +7,7 @@ var invr = [];
 var step = 0;
 var using = 0;
 var inBattle = false;
-var inDungeon = false;
+window.inDungeon = false;
 var hpmax = 0;
 var hp = 0;
 var xp = 0;
@@ -104,7 +104,7 @@ function invUse() {
 function travel () {
 	window.step = step - 1;
 	document.getElementById("steps").innerHTML = "Steps: " + step;
-	if (inDungeon === true) {
+	if (window.inDungeon === true) {
 		if (step === 0) {
 			bossenc();
 		} else {
@@ -122,7 +122,7 @@ function travel () {
 
 function generator() {
 	var rng = Math.floor((Math.random() * 3) + 1);
-	if (inDungeon === true) {
+	if (window.inDungeon === true) {
 		if (rng === 1) {
 			enmset();
 		} else if (rng === 2) {
