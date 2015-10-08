@@ -5,9 +5,9 @@ var invc = [];
 var invu = [];
 var invr = [];
 var step = 0;
-var inDungeon = false;
 var using = 0;
 var inBattle = false;
+var inDungeon = false;
 var hpmax = 0;
 var hp = 0;
 var xp = 0;
@@ -106,7 +106,7 @@ function travel () {
 	document.getElementById("steps").innerHTML = "Steps: " + step;
 	if (inDungeon === true) {
 		if (step === 0) {
-			bossset();
+			bossenc();
 		} else {
 			generator();
 		}
@@ -167,7 +167,7 @@ function leaveTown() {
 
 function dungeon() {
 	document.getElementById("text").innerHTML = "Welcome to the dungeon, sucker";
-	inDungeon = true;
+	window.inDungeon = true;
 	document.getElementById("commands").style.visibility = "visible";
 	document.getElementById("townc").style.visibility = "hidden";
 	window.step = Math.floor((Math.random() * 30) + 5);
@@ -187,7 +187,7 @@ function enmset() {
 	
 }
 
-function bossset() {
+function bossenc() {
 	window.ename = bossnames[Math.floor(Math.random() * bossnames.length)];
 	window.ehp = Math.floor((Math.random() * 15) + 10) * window.lvl;
 	window.eatk = Math.floor((Math.random() * 7) + 3) * window.atk;
@@ -360,6 +360,7 @@ function equipSet() {
 		} else if (invback === -1){
 			document.getElementById("text").innerHTML="Item doesn't exist!";
 		} else {
+			document.getElementById("equip").style.color= "lime";
 			switch (setting) {
 				case "Razor":
 					window.atkAdd = atkAdd + 3;
@@ -377,6 +378,7 @@ function equipSet() {
 		} else if (invback === -1){
 			document.getElementById("text").innerHTML="Item doesn't exist!";
 		} else {
+			document.getElementById("equip").style.color= "cyan";
 			switch (setting) {
 				case "Good Razor":
 					window.atkAdd = atkAdd + 5;
@@ -398,6 +400,7 @@ function equipSet() {
 		} else if (invback === -1){
 			document.getElementById("text").innerHTML="Item doesn't exist!";
 		} else {
+			document.getElementById("equip").style.color = "red";
 			switch (setting) {
 				case "Knife":
 					window.atkAdd = atkAdd + 10;
