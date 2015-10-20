@@ -6,8 +6,6 @@ var invu = [];
 var invr = [];
 var step = 0;
 var using = 0;
-var inBattle = false;
-window.inDungeon = false;
 var hpmax = 0;
 var hp = 0;
 var xp = 0;
@@ -18,14 +16,15 @@ var atkAdd = 0;
 var crit = 0;
 var def = 0;
 var enames1 = ["Haunted Blade", "Car", "Weed", "Guy", "Moron"];
-var bossnames = ["Dragon", "Warrior"];
+var bossnames = ["Dragon", "Warrior", "That Guy You Punched", "The Moron's Family", "The First Thing You Killed in the Beginning of your Quest", "The Number 6", "A Backpack", "Another Dragon"];
 var ename = "";
 var ehp = 0;
 var eatk = 0;
 var edef = 0;
+var bosses = 0;
 /*Reference
 Items: Protein Shake(20HP), Band-Aid(MAXHP), Beer(HP+15)
-Equipment: Razor, Good Razor, Bowling Ball, Knife, Grenade
+Equipment: Razor, Good Razor, Bowling Ball, Knife, Grenade, Shadow Bag(From Backpack Boss)
 */
 
 function newGame() {
@@ -45,6 +44,7 @@ function newGame() {
 	window.def = 0;
 	window.equip = "";
 	window.step = Math.floor((Math.random() * 20) + 5);
+	window.bosses = 8;
 	document.getElementById("stat").innerHTML = "HP: " + hp + "|" + hpmax + " XP: " + xp + "|" + xplvl + " Lvl: " + lvl;
 	document.getElementById("steps").innerHTML = "Steps: " + step;
 	document.getElementById("text").innerHTML = "<h1>Welcome to Beard Quest</h1><br /><h3>You must travel these dangerous lands to find your lost beard!</h3>";
@@ -90,10 +90,14 @@ function invUse() {
 			case "Band-Aid":
 				window.hp = window.hpmax;
 				window.invcon.splice(invback, 1);
+				document.getElementById("text").innerHTML = name + " has recovered MAX Hp!";
+				document.getElementById("stat").innerHTML = "HP: " + hp + "|" + hpmax + " XP: " + xp + "|" + xplvl + " Lvl: " + lvl;
 				break;
 			case "Beer":
 				window.hpmax = window.hpmax + 15;
 				window.invcon.splice(invback, 1);
+				document.getElementById("text").innerHTML = name + " increased MAX Hp by 15!";
+				document.getElementById("stat").innerHTML = "HP: " + hp + "|" + hpmax + " XP: " + xp + "|" + xplvl + " Lvl: " + lvl;
 				break;
 			default:
 				document.getElementById("text").innerHTML = "If this text comes up, something's missing or was done wrong!";
@@ -104,15 +108,15 @@ function invUse() {
 function travel () {
 	window.step = step - 1;
 	document.getElementById("steps").innerHTML = "Steps: " + step;
-	if (window.inDungeon === true) {
+	if (window.inDungeon == false) {
 		if (step === 0) {
-			bossenc();
+			town();
 		} else {
 			generator();
 		}
 	} else {
 		if (step === 0) {
-			town();
+			bossenc();
 		} else {
 			generator();
 		}
@@ -121,29 +125,18 @@ function travel () {
 }
 
 function generator() {
-	var rng = Math.floor((Math.random() * 3) + 1);
-	if (window.inDungeon === true) {
-		if (rng === 1) {
+	var rng = Math.floor((Math.random() * 100) + 1);
+		if (rng <= 100 && rng >= 51) {
 			enmset();
-		} else if (rng === 2) {
+		} else if (rng <= 50 && rng >= 31) {
 			document.getElementById("text").innerHTML= "Nothing special here, how boring!";
-		} else if (rng === 3) {
-			document.getElementById("text").innerHTML= "Holy cow! You found a backpack!";
-			window.cash = cash + 5;
-			window.invcon.push("Protein Shake");
-			document.getElementById("money").innerHTML = "Cash: " + cash;
-		}
-	} else {
-		if (rng === 1) {
-			enmset();
-		} else if (rng === 2) {
-			document.getElementById("text").innerHTML= "Nothing special here, how boring!";
-		} else if (rng === 3) {
-			document.getElementById("text").innerHTML= "Holy cow! You found a coinbag!";
+		} else if (rng <= 30 && rng >= 11) {
+			document.getElementById("text").innerHTML= "Holy cow! You found some cash";
 			window.cash = cash + 2;
 			document.getElementById("money").innerHTML = "Cash: " + cash;
+		} else if (rng <= 10) {
+			bossenc();
 		}
-	}
 }
 
 function town() {
@@ -165,14 +158,6 @@ function leaveTown() {
 	document.getElementById("steps").innerHTML = "Steps: " + step;
 }
 
-function dungeon() {
-	document.getElementById("text").innerHTML = "Welcome to the dungeon, sucker";
-	window.inDungeon = true;
-	document.getElementById("commands").style.visibility = "visible";
-	document.getElementById("townc").style.visibility = "hidden";
-	window.step = Math.floor((Math.random() * 30) + 5);
-}
-
 function enmset() {
 	window.ename = enames1[Math.floor(Math.random() * enames1.length)];
 	window.ehp = Math.floor((Math.random() * 10) + 1) * window.lvl;
@@ -192,27 +177,37 @@ function bossenc() {
 	window.ehp = Math.floor((Math.random() * 15) + 10) * window.lvl;
 	window.eatk = Math.floor((Math.random() * 7) + 3) * window.atk;
 	window.edef = Math.floor((Math.random() * 10) + 4) * window.def;
-	document.getElementById("text").innerHTML = ename + ": " + ehp;
+	document.getElementById("estat").innerHTML = ename + ": " + ehp;
 	document.getElementById("text").innerHTML = "Encountered the: " + ename;
 	window.inBattle = true;
 	document.getElementById("battlec").style.visibility = "visible";
 	document.getElementById("commands").style.visibility = "hidden";
 }
 
+function finalBossSet() {
+	document.getElementById("text").innerHTML = "To your horror,\nthe final boss,\nis your very beard...\nGet ready for the showdown of the ages!";
+	window.ehp = Math.floor((Math.random() * 500) + 100)
+	window.eatk = Math.floor((Math.random() * 25) + 10)
+	window.edef = Math.floor((Math.random() * 15) + 5)
+	document.getElementById("estat").innerHTML = "Final Boss: " + ehp;
+	window.inBattle = true;
+	document.getElementById("battlec").style.visibility = "visible";
+	document.getElementById("commands").style.visibility = "hidden";
+}
+
 function plyrAtk() {
-	if (inBattle === true) {
-		var rng = Math.floor(Math.random() * 100);
-		if (rng <= crit) {
-			window.ehp = ehp - ((atk + atkAdd) * 3);
-			document.getElementById("estat").innerHTML = ename + ": " + ehp + "<br>" + "You landed a critical!";
-			document.getElementById("stat").innerHTML = "HP: " + hp + "|" + hpmax + " XP: " + xp + "|" + xplvl + " Lvl: " + lvl;
-		} else {
-			window.ehp = ehp - (atk + atkAdd);
-			document.getElementById("estat").innerHTML = ename + ": " + ehp;
-			document.getElementById("stat").innerHTML = "HP: " + hp + "|" + hpmax + " XP: " + xp + "|" + xplvl + " Lvl: " + lvl;
-		}
+	var rng = Math.floor(Math.random() * 100);
+	if (rng <= crit) {
+		window.ehp = ehp - ((atk + atkAdd) * 3);
+		document.getElementById("estat").innerHTML = ename + ": " + ehp + "<br />" + "You landed a critical!";
+		document.getElementById("stat").innerHTML = "HP: " + hp + "|" + hpmax + " XP: " + xp + "|" + xplvl + " Lvl: " + lvl;
+	} else {
+		window.ehp = ehp - (atk + atkAdd);
+		document.getElementById("estat").innerHTML = ename + ": " + ehp;
+		document.getElementById("stat").innerHTML = "HP: " + hp + "|" + hpmax + " XP: " + xp + "|" + xplvl + " Lvl: " + lvl;
+	}
 	if (ehp <= 0) {
-		if (window.inDungeon === true) {
+		if (window.ename === "Warrior" || window.ename === "Dragon" || window.ename === "That Guy You Punched" || window.ename === "The Moron's Family" || window.ename === "The First Thing You Killed in the Beginning of your Quest" || window.ename === "The Number 6" || window.ename === "A Backpack" || window.ename === "Another Dragon") {
 			plyrWinBoss();
 		} else {
 			plyrWin();
@@ -220,8 +215,18 @@ function plyrAtk() {
 	} else {
 		enmAtk();
 	}
+}
+
+function run() {
+	var running = Math.floor((Math.random() * 100) + 1);
+	if (running >= 25) {
+		document.getElementById("text").innerHTML = "You successfuly ran from " + ename;
+		document.getElementById("estat").innerHTML = "";
+		document.getElementById("battlec").style.visibility = "hidden";
+		document.getElementById("commands").style.visibility = "visible";
 	} else {
-		document.getElementById("text").innerHTML="You aren't in battle!";
+		document.getElementById("text").innerHTML = "You failed to run, hope you got to read this!";
+		enmAtk();
 	}
 }
 
@@ -263,10 +268,10 @@ function plyrWin() {
 }
 
 function plyrWinBoss() {
-	window.inBattle = false;
-	window.inDungeon = false;
 	window.xp = xp + 50;
 	window.cash = cash + (eatk + edef); 
+	window.bosses = bosses - 1;
+	document.getElementById("estat").innerHTML = "";
 	document.getElementById("text").innerHTML = name + " has defeated " + ename;
 	document.getElementById("stat").innerHTML = "HP: " + hp + "|" + hpmax + " XP: " + xp + "|" + xplvl + " Lvl: " + lvl;
 	document.getElementById("money").innerHTML = "Cash: " + cash;
@@ -286,6 +291,19 @@ function plyrWinBoss() {
 	}
 	document.getElementById("battlec").style.visibility = "hidden";
 	document.getElementById("commands").style.visibility = "visible";
+	if (ename === "A Backpack") {
+		alert("You defeated the Backpack and got some sweet stuff!");
+		window.cash = cash + 100;
+		window.invr.push("Shadow Bag");
+	}
+	if (bosses <= 0) {
+		var finale = confirm("You have beaten enough bosses to finally apporach the final boss and get back you beard!\nIf you don't think your ready, hit cancel and train some more, this message will comeback after beating another boss.")
+		if (finale == true) {
+			finalBossSet();
+		} else {
+			alert("I understand, no rush.");
+		}
+	}
 }
 
 function plyrDie() {
@@ -343,6 +361,7 @@ function shop() {
 			} else {
 				document.getElementById("text").innerHTML="You don't have enough money for this!";
 			}
+		break;
 		default:
 			document.getElementById("text").innerHTML="Item doesn't exist!";
 	}
@@ -393,7 +412,7 @@ function equipSet() {
 	}
 	} else if (ques === "Rare")
 		var setting = prompt("What are you equiping?");
-		var invback = invu.indexOf(setting);
+		var invback = invr.indexOf(setting);
 		if (setting === "Unequip") {
 			window.equip = "";
 			window.atkAdd = 0;
@@ -410,6 +429,9 @@ function equipSet() {
 					window.atkAdd = atkAdd + 14;
 					document.getElementById("equip").innerHTML="Equipped: " + setting;
 				break;
+				case "Shadow Bag":
+					window.atkAdd = atkAdd + 25;
+					document.getElementById("equip").innerHTML="Equipped: " + setting;
 				default: console.log("Something broke then!");
 			}
 		}

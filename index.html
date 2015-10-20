@@ -3,6 +3,7 @@
 <head>
 	<script type="text/javascript" src="engine.js"></script>
 	<title>Beard Quest</title>
+	<meta charset = "UTF-8">
 <style>
 	body {
 	background-color: #000000;
@@ -42,15 +43,16 @@
 	<summary>New Game</summary>
 	<button id = "startg" onClick = "newGame()">New Game</button>
 	</details>
-	<br>
+	<br />
 	<details id = "battlec">
 		<summary>Battle Commands</summary>
 		<button id = "atk" onClick = "plyrAtk()">Attack!</button>
+		<button id = "run" onClick = "run()">Run!</button>
 		<button id = "invs" onClick = "invShow()">Show Inventory</button>
 		<button id = "invh" onClick = "invHide()">Hide Inventory</button>
 		<button id = "invuse" onClick = "invUse()">Use Inventory Item</button>
 	</details>
-	<br>
+	<br />
 	<details id = "commands">
 		<summary>Commands</summary>
 		<button id = "moving" onClick = "travel()">Move Forward</button>
@@ -59,11 +61,10 @@
 		<button id = "invuse" onClick = "invUse()">Use Inventory Item</button>
 		<button id = "set" onClick = "equipSet()">Equip Item</button>
 	</details>
-	<br>
+	<br />
 	<details id = "townc">
 		<summary>Town Commands</summary>
 		<button id = "shop" onClick = "shop()">Shop</button>
-		<button id = "dungeons" onClick = "dungeon()">Goto Dungeon</button>
 		<button id = "inn" onClick = "inn()">Goto Inn</button>
 		<button id = "leave" onClick = "leaveTown()">Leave Town</button>
 	</details>
