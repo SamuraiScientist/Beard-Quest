@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script type="text/javascript" src="Engine/engine.js"></script>
+	<title>Beard Quest</title>
+	<meta charset = "UTF-8">
+<style>
+	body {
+	background-color: #000000;
+	}
+	
+	details {
+		color: #00FF00;
+	}
+	
+	p {
+		color: #00FF00;
+	}
+	
+	#invt {
+		color: #FFFFFF;
+	}
+	
+	#invtc {
+		color: #00FF00;
+	}
+	
+	#invtu {
+		color: #00FFFF;
+	}
+	
+	#invtr {
+		color: #FF0000;
+	}
+	
+	#invts {
+		color: #FF00FF;
+	}
+	
+	#money {
+		color: #FFFF00;
+	}
+</style>
+</head>
+<body>
+	<details id = "control">
+	<summary>Open this first</summary>
+	<button id = "startg" onClick = "newGame()">New Game</button>
+	</details>
+	<br />
+	<details id = "battlec">
+		<summary>Battle Commands</summary>
+		<button id = "atk" onClick = "plyrAtk()">Attack!</button>
+		<button id = "run" onClick = "run()">Run!</button>
+		<button id = "invs" onClick = "invShow()">Show Inventory</button>
+		<button id = "invh" onClick = "invHide()">Hide Inventory</button>
+		<button id = "invuse" onClick = "invUse()">Use Inventory Item</button>
+	</details>
+	<br />
+	<details id = "commands">
+		<summary>Commands</summary>
+		<button id = "moving" onClick = "travel()">Move Forward</button>
+		<button id = "invs" onClick = "invShow()">Show Inventory</button>
+		<button id = "invh" onClick = "invHide()">Hide Inventory</button>
+		<button id = "invuse" onClick = "invUse()">Use Inventory Item</button>
+		<button id = "set" onClick = "equipSet()">Equip Item</button>
+	</details>
+	<br />
+	<details id = "townc">
+		<summary>Town Commands</summary>
+		<button id = "shop" onClick = "shop()">Shop</button>
+		<button id = "inn" onClick = "inn()">Goto Inn</button>
+		<button id = "leave" onClick = "leaveTown()">Leave Town</button>
+	</details>
+	<p id = "stat"></p>
+	<br>
+	<p id = "estat"></p>
+	<br>
+	<p id = "money"></p>
+	<br>
+	<p id = "steps"></p>
+	<br>
+	<p id = "invt"></p>
+	<p id = "invtc"></p>
+	<p id = "invtu"></p>
+	<p id = "invtr"></p>
+	<p id = "invts"></p>
+	<p id = "equip"></p>
+	<p id = "text"></p>
+	<script type = "text/javascript">
+		document.getElementById("commands").style.visibility = "hidden";
+		document.getElementById("battlec").style.visibility = "hidden";
+		document.getElementById("townc").style.visibility = "hidden";
+	</script>
+</body>
+</html>
